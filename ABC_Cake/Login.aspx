@@ -5,62 +5,86 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Login Form</title>
-</head>
     <style>
-         body{
-     text-align:center;
-     margin-top: 10rem;
-     font-size:2rem;
-     padding-bottom:10px;
- }
-         div{User Registration  User Name Password Contact SexMaleFemaleMaleFemale Date
-             padding:5px;
-         }
-         .btn-login{
-             margin-left:15%;
-
-         }
-         form{
-             border:solid;
-             margin-left:30%;
-             margin-right:30%;
-             padding-bottom:10px;
-         }
-         .checkbox{
-
-             margin-left:15%;
-
-         }
-
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+        }
+        .login-container {
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            text-align: center;
+        }
+        .login-container h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .login-container label {
+            display: block;
+            margin: 10px 0 5px;
+            font-weight: bold;
+        }
+        .login-container input[type="text"],
+        .login-container input[type="password"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+        .checkbox {
+            margin-bottom: 15px;
+        }
+        .btn-login {
+            background-color: #00CC00;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .login-message {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
     </style>
-   
+</head>
+
 <body>
-    <form id="form1" runat="server">
-        <div>
-            <asp:Label ID="Label1" runat="server" Text="User Login" ForeColor="Red"></asp:Label>
-        </div>
-        <div>
-            <asp:Label ID="Label2" runat="server" Text="Username "></asp:Label>
-            <asp:TextBox ID="TextBox1" runat="server" Height="35px"></asp:TextBox>
-        </div>
-         <div>
-     <asp:Label ID="Label3" runat="server" Text="Password "></asp:Label>
-     <asp:TextBox ID="TextBox2" runat="server" TextMode="Password" Height="35px"></asp:TextBox>
-     </div>
-        <input class="checkbox" type="checkbox" onchange="document.getElementById('TextBox2').type=this.checked? 'text':'password'" /> Show Password
-        <div>
-            <asp:Button CssClass="btn-login" ID="Button1" runat="server" Text="Login" BackColor="#00CC00" ForeColor="White" Height="30px" Width="80px" OnClick="Button1_Click" />
+    <form id="form1" runat="server" class="login-container">
+        <h2>User Login</h2>
+        <asp:Label ID="Label1" runat="server" Text="Username" AssociatedControlID="TextBox1"></asp:Label>
+        <asp:TextBox ID="TextBox1" runat="server" Height="35px"></asp:TextBox>
+        
+        <asp:Label ID="Label2" runat="server" Text="Password" AssociatedControlID="TextBox2"></asp:Label>
+        <asp:TextBox ID="TextBox2" runat="server" TextMode="Password" Height="35px"></asp:TextBox>
+        
+        <input class="checkbox" type="checkbox" onchange="document.getElementById('TextBox2').type=this.checked? 'text':'password'" />
+        Show Password
 
-           
+        <asp:Button CssClass="btn-login" ID="Button1" runat="server" Text="Login" OnClick="Button1_Click" />
 
+        <div class="login-message">
+            Don't have an account yet? <a href="Registration.aspx">Sign Up.</a>
         </div>
-     
     </form>
-    <p>
-        &nbsp;</p>
-    <p>
-        &nbsp;</p>
-    <p>
-        &nbsp;</p>
 </body>
 </html>

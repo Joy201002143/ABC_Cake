@@ -7,71 +7,71 @@
     <title>User Registration</title>
     <style type="text/css">
         body {
-            font-family: Arial, sans-serif; /* Font style for the body */
+            font-family: Arial, sans-serif; 
             display: flex;
-            justify-content: center; /* Center horizontally */
-            align-items: center; /* Center vertically */
-            height: 100vh; /* Full viewport height */
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
             margin: 0;
-            background-color: #f4f4f4; /* Light background color */
+            background-color: #f4f4f4; 
         }
         .registration-container {
-            background-color: white; /* White background for the container */
-            padding: 30px; /* Padding around the container */
-            border-radius: 8px; /* Rounded corners */
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow effect */
-            width: 350px; /* Fixed width for better alignment */
-            text-align: center; /* Center text */
+            background-color: white; 
+            padding: 30px; 
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+            width: 350px; 
+            text-align: center; 
         }
         .registration-header {
-            font-size: 24px; /* Larger font size for the header */
-            margin-bottom: 20px; /* Space below the header */
-            color: #333; /* Dark text color */
+            font-size: 24px; 
+            margin-bottom: 20px; 
+            color: #333; 
         }
         .form-group {
-            margin-bottom: 15px; /* Space between form fields */
-            display: flex; /* Use flexbox for alignment */
-            flex-direction: column; /* Stack label and input vertically */
-            align-items: flex-start; /* Align items to the left */
+            margin-bottom: 15px; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: flex-start; 
         }
         label {
-            margin-bottom: 5px; /* Space between label and input */
-            font-weight: bold; /* Bold text for labels */
-            color: #555; /* Medium text color for labels */
-            width: 100%; /* Full width for the label */
+            margin-bottom: 5px; 
+            font-weight: bold; 
+            color: #555; 
+            width: 100%; 
         }
         input[type="text"], input[type="password"], select {
-            padding: 10px; /* Padding inside input fields */
-            border: 1px solid #ccc; /* Light border for input fields */
-            border-radius: 4px; /* Rounded corners for input fields */
-            width: 100%; /* Full width for input fields */
-            box-sizing: border-box; /* Include padding and border in element's total width */
+            padding: 10px; 
+            border: 1px solid #ccc; 
+            border-radius: 4px; 
+            width: 100%; 
+            box-sizing: border-box; 
         }
         .btn-register {
-            background-color: #28a745; /* Green background for button */
-            color: white; /* White text color */
-            border: none; /* No border */
-            padding: 10px 15px; /* Padding inside button */
-            border-radius: 5px; /* Rounded corners for button */
-            cursor: pointer; /* Pointer cursor on hover */
-            margin-top: 15px; /* Space above the button */
-            font-size: 16px; /* Font size for button */
-            width: 100%; /* Full width for the button */
+            background-color: #28a745; 
+            color: white; 
+            border: none; 
+            padding: 10px 15px; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            margin-top: 15px; 
+            font-size: 16px; 
+            width: 100%; 
         }
         .btn-register:hover {
-            background-color: #218838; /* Darker green on hover */
+            background-color: #218838; 
         }
         .login-message {
-            margin-top: 20px; /* Space above login message */
-            font-size: 14px; /* Font size for message */
-            color: #666; /* Lighter text color for message */
+            margin-top: 20px; 
+            font-size: 14px; 
+            color: #666; 
         }
         a {
-            color: #007bff; /* Link color */
-            text-decoration: none; /* No underline */
+            color: #007bff; 
+            text-decoration: none; 
         }
         a:hover {
-            text-decoration: underline; /* Underline on hover */
+            text-decoration: underline; 
         }
     </style>
 </head>

@@ -14,27 +14,6 @@ namespace ABC_Cake
         {
 
         }
-
-        //protected void Button1_Click(object sender, EventArgs e)
-        //    {
-        //    SqlConnection con = new SqlConnection("Data Source=DESKTOP-JHB8AON; Integrated Security=True");
-        //    con.Open();
-        //    String loginQuery = "SELECT COUNT(*) FROM Users WHERE username=@username AND password=@password";
-        //    SqlCommand cmd = new SqlCommand(loginQuery,con);
-        //    cmd.Parameters.AddWithValue("@username", TextBox1.Text);
-        //    cmd.Parameters.AddWithValue("@password", TextBox2.Text);
-        //    int count=(int)cmd.ExecuteScalar();
-        //    if (count > 0)
-        //    {
-        //        Response.Write("<script>alert('Login Success');</script>");
-        //        Response.Redirect("Default.aspx");
-        //    }
-        //    else {
-        //        Response.Write("<script>alert('Login Failed');</script>");
-
-        //    }
-        //    con.Close();
-        //}
         protected void Button1_Click(object sender, EventArgs e)
         {
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["AbcCakeConnection"].ConnectionString))
@@ -55,7 +34,7 @@ namespace ABC_Cake
                 {
                     Response.Write("<script>alert('Login Failed');</script>");
                 }
-            }  // Using statement will close the connection automatically
+            }  
         }
 
         protected void Button2_Click(object sender, EventArgs e)

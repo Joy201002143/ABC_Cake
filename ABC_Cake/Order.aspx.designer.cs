@@ -78,6 +78,15 @@ namespace ABC_Cake
         protected global::System.Web.UI.WebControls.DropDownList DropDownList6;
 
         /// <summary>
+        /// DropDownList7 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList DropDownList7;
+
+        /// <summary>
         /// txtDeliveryAddress control.
         /// </summary>
         /// <remarks>

@@ -19,6 +19,7 @@ namespace ABC_Cake
             if (!IsPostBack)
             {
                 BindDropDowns();
+                
             }
         }
 
@@ -28,8 +29,14 @@ namespace ABC_Cake
             {
                 con.Open();
 
-               
-                using (SqlCommand cmd = new SqlCommand("SELECT Ingredient_ID, Ingredient_Name FROM Ingredient WHERE Custom_Cake_Name = 'Decoration'", con))
+                // Decoration Types
+                using (SqlCommand cmd = new SqlCommand(@"
+            SELECT Ingredient.Ingredient_ID, Ingredient.Ingredient_Name 
+            FROM Ingredient 
+            JOIN Inventory ON Ingredient.Ingredient_ID = Inventory.IngredientID 
+            WHERE Ingredient.Custom_Cake_Name = 'Decoration' AND Inventory.Quantity > 0", con))
+
+                    
                 {
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -41,8 +48,12 @@ namespace ABC_Cake
                 }
                 DropDownList6.Items.Insert(0, new ListItem("Select Decoration Types", ""));
 
-                
-                using (SqlCommand cmd = new SqlCommand("SELECT Ingredient_ID, Ingredient_Name FROM Ingredient WHERE Custom_Cake_Name = 'Cake Flavors'", con))
+                // Cake Flavors
+                using (SqlCommand cmd = new SqlCommand(@"
+            SELECT Ingredient.Ingredient_ID, Ingredient.Ingredient_Name 
+            FROM Ingredient 
+            JOIN Inventory ON Ingredient.Ingredient_ID = Inventory.IngredientID 
+            WHERE Ingredient.Custom_Cake_Name = 'Cake Flavors' AND Inventory.Quantity > 0", con))
                 {
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -54,8 +65,12 @@ namespace ABC_Cake
                 }
                 DropDownList1.Items.Insert(0, new ListItem("Select Cake Flavor", ""));
 
-                // Bind Cake Sizes
-                using (SqlCommand cmd = new SqlCommand("SELECT Ingredient_ID, Ingredient_Name FROM Ingredient WHERE Custom_Cake_Name = 'Cake Sizes'", con))
+                // Cake Sizes
+                using (SqlCommand cmd = new SqlCommand(@"
+            SELECT Ingredient.Ingredient_ID, Ingredient.Ingredient_Name 
+            FROM Ingredient 
+            JOIN Inventory ON Ingredient.Ingredient_ID = Inventory.IngredientID 
+            WHERE Ingredient.Custom_Cake_Name = 'Cake Sizes' AND Inventory.Quantity > 0", con))
                 {
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -67,8 +82,12 @@ namespace ABC_Cake
                 }
                 DropDownList2.Items.Insert(0, new ListItem("Select Cake Size", ""));
 
-                // Bind Cake Shapes
-                using (SqlCommand cmd = new SqlCommand("SELECT Ingredient_ID, Ingredient_Name FROM Ingredient WHERE Custom_Cake_Name = 'Cake Shapes'", con))
+                // Cake Shapes
+                using (SqlCommand cmd = new SqlCommand(@"
+            SELECT Ingredient.Ingredient_ID, Ingredient.Ingredient_Name 
+            FROM Ingredient 
+            JOIN Inventory ON Ingredient.Ingredient_ID = Inventory.IngredientID 
+            WHERE Ingredient.Custom_Cake_Name = 'Cake Shapes' AND Inventory.Quantity > 0", con))
                 {
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -80,8 +99,12 @@ namespace ABC_Cake
                 }
                 DropDownList3.Items.Insert(0, new ListItem("Select Cake Shape", ""));
 
-                // Bind Cake Colors
-                using (SqlCommand cmd = new SqlCommand("SELECT Ingredient_ID, Ingredient_Name FROM Ingredient WHERE Custom_Cake_Name = 'Color'", con))
+                // Cake Colors
+                using (SqlCommand cmd = new SqlCommand(@"
+            SELECT Ingredient.Ingredient_ID, Ingredient.Ingredient_Name 
+            FROM Ingredient 
+            JOIN Inventory ON Ingredient.Ingredient_ID = Inventory.IngredientID 
+            WHERE Ingredient.Custom_Cake_Name = 'Color' AND Inventory.Quantity > 0", con))
                 {
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -93,8 +116,12 @@ namespace ABC_Cake
                 }
                 DropDownList4.Items.Insert(0, new ListItem("Select Cake Color", ""));
 
-                // Bind Cake Fillings
-                using (SqlCommand cmd = new SqlCommand("SELECT Ingredient_ID, Ingredient_Name FROM Ingredient WHERE Custom_Cake_Name = 'Filling'", con))
+                // Cake Fillings
+                using (SqlCommand cmd = new SqlCommand(@"
+            SELECT Ingredient.Ingredient_ID, Ingredient.Ingredient_Name 
+            FROM Ingredient 
+            JOIN Inventory ON Ingredient.Ingredient_ID = Inventory.IngredientID 
+            WHERE Ingredient.Custom_Cake_Name = 'Filling' AND Inventory.Quantity > 0", con))
                 {
                     using (SqlDataReader reader = cmd.ExecuteReader())
                     {
@@ -105,6 +132,24 @@ namespace ABC_Cake
                     }
                 }
                 DropDownList5.Items.Insert(0, new ListItem("Select Cake Filling", ""));
+
+                //Cake Size
+
+                using (SqlCommand cmd = new SqlCommand(@"
+            SELECT Ingredient.Ingredient_ID, Ingredient.Ingredient_Name 
+            FROM Ingredient 
+            JOIN Inventory ON Ingredient.Ingredient_ID = Inventory.IngredientID 
+            WHERE Ingredient.Custom_Cake_Name = 'Size' AND Inventory.Quantity > 0", con))
+                {
+                    using (SqlDataReader reader = cmd.ExecuteReader())
+                    {
+                        DropDownList7.DataSource = reader;
+                        DropDownList7.DataTextField = "Ingredient_Name";
+                        DropDownList7.DataValueField = "Ingredient_ID";
+                        DropDownList7.DataBind();
+                    }
+                }
+                DropDownList7.Items.Insert(0, new ListItem("Select Cake Size", ""));
             }
         }
 
@@ -153,7 +198,7 @@ namespace ABC_Cake
         {
             decimal total = 0;
 
-            total += GetIngredientPrice(DropDownList6.SelectedValue); // Decoration
+            total += GetIngredientPrice(DropDownList6.SelectedValue);       // Decoration
             total += GetIngredientPrice(DropDownList1.SelectedValue); // Flavor
             total += GetIngredientPrice(DropDownList2.SelectedValue); // Size
             total += GetIngredientPrice(DropDownList3.SelectedValue); // Shape
@@ -206,7 +251,6 @@ namespace ABC_Cake
             {
                 con.Open();
 
-                // Step 1: Insert into Orders table
                 string insertOrderQuery = @"
             INSERT INTO Orders (UserId, TotalPrice, DeliveryAddress, PhoneNumber, StatusID, OrderDate) 
             OUTPUT INSERTED.OrderID 
@@ -221,12 +265,10 @@ namespace ABC_Cake
 
                 int orderId = (int)orderCmd.ExecuteScalar(); // Retrieve the new OrderID
 
-                // Step 2: Insert into OrderIngredients table
                 string insertOrderIngredientsQuery = @"
             INSERT INTO OrderIngredients (OrderID, IngredientID) 
             VALUES (@OrderID, @IngredientID)";
 
-                // Create a list of selected ingredient IDs from the dropdowns
                 var ingredientIds = new List<string>
         {
             DropDownList6.SelectedValue, // Decoration
@@ -245,14 +287,15 @@ namespace ABC_Cake
                         {
                             ingredientCmd.Parameters.AddWithValue("@OrderID", orderId);
                             ingredientCmd.Parameters.AddWithValue("@IngredientID", ingredientId);
-                            ingredientCmd.ExecuteNonQuery(); // Execute the insert command for each ingredient
+                            ingredientCmd.ExecuteNonQuery(); 
                         }
                         ReduceInventory(con, ingredientId);
                     }
                 }
 
-                // Step 3: Notify the user and redirect
-                Response.Write("<script>alert('Order Confirmed!');</script>");
+             
+                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Order Pending. Please Check The Status!');", true);
+                
                 Response.Redirect("UserProfile.aspx");
             }
         }
@@ -262,9 +305,9 @@ namespace ABC_Cake
             if (!string.IsNullOrEmpty(ingredientId))
             {
                 string updateInventoryQuery = @"
-        UPDATE Inventory 
-        SET Quantity = Quantity - 1 
-        WHERE IngredientID = @IngredientId AND Quantity > 0"; // Ensure quantity does not go negative
+                        UPDATE Inventory 
+                        SET Quantity = Quantity - 1 
+                        WHERE IngredientID = @IngredientId AND Quantity > 0"; 
 
 
 
@@ -276,26 +319,8 @@ namespace ABC_Cake
                     // Optionally, you could handle cases where the ingredient was not in stock
                     if (rowsAffected == 0)
                     {
-                        string getIngredientNameQuery = "SELECT Ingredient_Name FROM Ingredient WHERE Ingredient_ID = @IngredientId";
-                        using (SqlCommand getNameCmd = new SqlCommand(getIngredientNameQuery, con))
-                        {
-                            getNameCmd.Parameters.AddWithValue("@IngredientId", ingredientId);
-                            object ingredientNameObj = getNameCmd.ExecuteScalar();
-
-                            if (ingredientNameObj != null)
-                            {
-                                string ingredientName = ingredientNameObj.ToString();
-                                string message = $"The ingredient '{ingredientName}' (ID: {ingredientId}) is out of stock.";
-
-                                // Display the alert with the ingredient name
-                                ClientScript.RegisterStartupScript(this.GetType(), "alert", $"alert('{message}');", true);
-                            }
-                            else
-                            {
-                                // If no ingredient name was found, you can handle it here if needed
-                                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Ingredient not found.');", true);
-                            }
-                        }
+                        ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Ingredient was not in stock');", true);
+                        return;
                     }
                 }
             }

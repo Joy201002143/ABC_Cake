@@ -27,7 +27,7 @@
             background-color: #333;
             color: white;
             height: 100vh;
-            position: fixed;
+            position: absolute;
             padding-top: 20px;
         }
         .sidebar a {
@@ -99,12 +99,11 @@
         <div class="header">ABC Cake Shop - Order Your Custom Cake</div>
         <div class="container">
             <div class="sidebar">
-                <a href="Home.aspx">Home</a>
+                <a href="UserProfile.aspx">Home</a>
                 <a href="Order.aspx">Make Order</a>
                 <a href="AboutUs.aspx">About Us</a>
                 <a href="Contact.aspx">Contact</a>
-                <a href="OrderHistory.aspx">Order History</a>
-                <a href="login.aspx">Log Out</a>
+                <a href="Logout.aspx">Log Out</a>
             </div>
             <div class="content">
                 <div class="form-section">

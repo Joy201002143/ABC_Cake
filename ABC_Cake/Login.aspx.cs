@@ -12,6 +12,7 @@ namespace ABC_Cake
         {
             if (IsPostBack)
             {
+
                 
                 if (Session["UserId"] != null)
                 {
@@ -29,32 +30,43 @@ namespace ABC_Cake
             {
                 con.Open();
 
-                // Query to get the UserId if the username and password match
-                string loginQuery = "SELECT UserId FROM Users WHERE username = @username AND password = @password";
+                // Query to get UserId and Role if the username and password match
+                string loginQuery = "SELECT UserId, Roles FROM Users WHERE username = @username AND password = @password";
                 SqlCommand cmd = new SqlCommand(loginQuery, con);
                 cmd.Parameters.AddWithValue("@username", username);
                 cmd.Parameters.AddWithValue("@password", password);
 
-                object userId = cmd.ExecuteScalar(); // Retrieve UserId if credentials match
+                using (SqlDataReader reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        int userId = reader.GetInt32(0); 
+                        string role = reader.GetString(1); 
 
-                if (userId != null)
-                {
-                    // Login successful, store UserId in session
-                    Session["UserId"] = userId;
-                    Response.Write("<script>alert('Login Success');</script>");
-                    Response.Redirect("UserProfile.aspx");
-                }
-                else
-                {
-                    // Login failed
-                    Response.Write("<script>alert('Login Failed');</script>");
+                        Session["UserId"] = userId;
+                        Session["UserRole"] = role; 
+
+                        Response.Write("<script>alert('Login Success');</script>");
+
+                        if (role == "Admin")
+                        {
+                            Response.Redirect("Admin_dashboard.aspx");
+                        }
+                        else
+                        {
+                            Response.Redirect("UserProfile.aspx");
+                        }
+                    }
+                    else
+                    {
+                        
+                        Response.Write("<script>alert('Login Failed');</script>");
+                    }
                 }
             }
         }
-
         protected void Button2_Click(object sender, EventArgs e)
         {
-            // Logic for another button (if needed, e.g., registration button)
         }
     }
 }

@@ -11,7 +11,7 @@ namespace ABC_Cake
 {
 
 
-    public partial class Admin_dashboard
+    public partial class Inventory_Management
     {
 
         /// <summary>
@@ -24,57 +24,48 @@ namespace ABC_Cake
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// totalUsersLabel control.
+        /// ddlIngredients control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl totalUsersLabel;
+        protected global::System.Web.UI.WebControls.DropDownList ddlIngredients;
 
         /// <summary>
-        /// totalSalesLabel control.
+        /// txtQuantity control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl totalSalesLabel;
+        protected global::System.Web.UI.WebControls.TextBox txtQuantity;
 
         /// <summary>
-        /// totalInventoryLabel control.
+        /// btnAddInventory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl totalInventoryLabel;
+        protected global::System.Web.UI.WebControls.Button btnAddInventory;
 
         /// <summary>
-        /// LowInventoryGrid control.
+        /// btnReduceInventory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView LowInventoryGrid;
+        protected global::System.Web.UI.WebControls.Button btnReduceInventory;
 
         /// <summary>
-        /// ddlStatus control.
+        /// gvInventory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlStatus;
-
-        /// <summary>
-        /// OrderGrid control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.GridView OrderGrid;
+        protected global::System.Web.UI.WebControls.GridView gvInventory;
     }
 }

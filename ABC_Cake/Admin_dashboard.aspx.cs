@@ -21,10 +21,29 @@ namespace ABC_Cake
             }
             if (!IsPostBack)
             {
+                LoadOrderStatuses();
                 LoadPanels();
                 LoadOrderGrid("All");
             }
         }
+
+        private void LoadOrderStatuses()
+{
+    using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["AbcCakeConnection"].ConnectionString))
+    {
+        con.Open();
+        SqlCommand cmd = new SqlCommand("SELECT statusID, status_name FROM Status", con);
+        SqlDataReader reader = cmd.ExecuteReader();
+
+        ddlStatus.DataSource = reader;
+        ddlStatus.DataTextField = "status_name";
+        ddlStatus.DataValueField = "statusID";
+        ddlStatus.DataBind();
+        
+        // Optionally add a default item
+        ddlStatus.Items.Insert(0, new ListItem("Select Status", "0"));
+    }
+}
 
         private void LoadPanels()
         {
@@ -112,7 +131,7 @@ namespace ABC_Cake
 
         protected void FilterOrdersByStatus(object sender, EventArgs e)
         {
-            LoadOrderGrid(ddlStatusFilter.SelectedValue);
+            LoadOrderGrid(ddlStatus.SelectedValue);
         }
 
         protected void UpdateOrderStatus(object sender, EventArgs e)
@@ -132,7 +151,7 @@ namespace ABC_Cake
                 cmd.ExecuteNonQuery();
             }
 
-            LoadOrderGrid(ddlStatusFilter.SelectedValue);
+            LoadOrderGrid(ddlStatus.SelectedValue);
         }
 
     }

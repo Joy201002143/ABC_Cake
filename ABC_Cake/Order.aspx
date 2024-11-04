@@ -103,19 +103,19 @@
 
 .grid-container {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Responsive grid */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
     gap: 20px;
     width: 100%;
-    max-width: 1200px; /* Limits the container width for better readability */
+    max-width: 1200px; 
 }
 
 .grid-item {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds shadow for a card effect */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
     border-radius: 8px;
     overflow: hidden;
 }
 
-/* GridView styling */
+
 .styled-grid {
     width: 100%;
     border-collapse: collapse;
@@ -123,7 +123,7 @@
 }
 
 .styled-grid th {
-    background-color: #4CAF50; /* Header background color */
+    background-color: #4CAF50; 
     color: white;
     padding: 8px;
     text-align: left;
@@ -135,14 +135,14 @@
 }
 
 .styled-grid tr:hover {
-    background-color: #f5f5f5; /* Hover effect for rows */
+    background-color: #f5f5f5; 
 }
 
 .styled-grid tr:nth-child(even) {
-    background-color: #f2f2f2; /* Zebra striping */
+    background-color: #f2f2f2; 
 }
 
-/* Total Price Label styling */
+
 .total-price-label {
     font-size: 1.2em;
     font-weight: bold;
@@ -150,7 +150,7 @@
     margin: 20px 0;
 }
 
-/* Confirm Button styling */
+
 .confirm-button {
     padding: 10px 20px;
     font-size: 1em;

@@ -1,17 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
 using System.Data;
-using System.Linq;
-using System.Web;
+using System.Data.SqlClient;
+using System.Configuration;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using System.Configuration;
 
 namespace ABC_Cake
 {
     public partial class Admin_dashboard : System.Web.UI.Page
     {
+        SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["AbcCakeConnection"].ConnectionString);
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["UserRole"] == null)
@@ -21,139 +20,75 @@ namespace ABC_Cake
             }
             if (!IsPostBack)
             {
-                LoadOrderStatuses();
-                LoadPanels();
-                LoadOrderGrid("All");
+                LoadDashboardData();
+                LoadOrderList();
+                LoadLowInventory();
             }
         }
 
-        private void LoadOrderStatuses()
-{
-    using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["AbcCakeConnection"].ConnectionString))
-    {
-        con.Open();
-        SqlCommand cmd = new SqlCommand("SELECT statusID, status_name FROM Status", con);
-        SqlDataReader reader = cmd.ExecuteReader();
-
-        ddlStatus.DataSource = reader;
-        ddlStatus.DataTextField = "status_name";
-        ddlStatus.DataValueField = "statusID";
-        ddlStatus.DataBind();
-        
-        // Optionally add a default item
-        ddlStatus.Items.Insert(0, new ListItem("Select Status", "0"));
-    }
-}
-
-        private void LoadPanels()
+        protected void LoadDashboardData()
         {
-            totalUsersLabel.InnerText = GetTotalUsers().ToString();
-            totalSalesLabel.InnerText = GetTotalSales().ToString("C");
-            totalInventoryLabel.InnerText = GetTotalInventory().ToString();
-            LoadLowInventory();
+            con.Open();
+            SqlCommand cmdUsers = new SqlCommand("SELECT COUNT(*) FROM Users", con);
+            totalUsersLabel.InnerText = cmdUsers.ExecuteScalar().ToString();
+
+            SqlCommand cmdSales = new SqlCommand("SELECT SUM(TotalPrice) FROM Orders", con);
+            var totalSales = cmdSales.ExecuteScalar();
+            totalSalesLabel.InnerText = "$" + (totalSales != DBNull.Value ? totalSales.ToString() : "0");
+
+            SqlCommand cmdInventory = new SqlCommand("SELECT SUM(Quantity) FROM Inventory", con);
+            var totalInventory = cmdInventory.ExecuteScalar();
+            totalInventoryLabel.InnerText = totalInventory != DBNull.Value ? totalInventory.ToString() : "0";
+            con.Close();
         }
 
-        private int GetTotalUsers()
+        protected void LoadOrderList()
         {
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["AbcCakeConnection"].ConnectionString))
-            {
-                con.Open();
-                SqlCommand cmd = new SqlCommand("SELECT COUNT(*) FROM Users", con);
-                return (int)cmd.ExecuteScalar();
-            }
+            SqlDataAdapter da = new SqlDataAdapter(
+    @"SELECT o.OrderID, o.UserId, o.TotalPrice, o.StatusID, 
+             s.status_name AS Status, o.OrderDate, 
+             o.DeliveryAddress, o.PhoneNumber , s.status_name
+      FROM [Orders] o
+      INNER JOIN Status s ON o.StatusID = s.statusID",
+    con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            OrderGrid.DataSource = dt;
+            OrderGrid.DataBind();
         }
 
-        private decimal GetTotalSales()
+        protected void LoadLowInventory()
         {
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["AbcCakeConnection"].ConnectionString))
-            {
-                con.Open();
-                SqlCommand cmd = new SqlCommand("SELECT SUM(TotalPrice) FROM Orders", con);
-                return (decimal)cmd.ExecuteScalar();
-            }
-        }
-
-        private int GetTotalInventory()
-        {
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["AbcCakeConnection"].ConnectionString))
-            {
-                con.Open();
-                SqlCommand cmd = new SqlCommand("SELECT SUM(Quantity) FROM Inventory", con);
-                object result = cmd.ExecuteScalar();
-                return (int)(result != DBNull.Value ? Convert.ToDecimal(result) : 0m);
-            }
-        }
-
-        private void LoadLowInventory()
-        {
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["AbcCakeConnection"].ConnectionString))
-            {
-                con.Open();
-                SqlCommand cmd = new SqlCommand(@"
-            SELECT i.Ingredient_Name, inv.Quantity 
-            FROM Inventory inv 
-            JOIN Ingredient i ON inv.IngredientID = i.Ingredient_ID 
-            WHERE inv.Quantity < 10", con);
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                LowInventoryGrid.DataSource = dt;
-                LowInventoryGrid.DataBind();
-            }
-        }
-
-        protected void LoadOrderGrid(string status)
-        {
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["AbcCakeConnection"].ConnectionString))
-            {
-                con.Open();
-                string query = "SELECT o.OrderID, o.UserId, o.TotalPrice, o.StatusID, o.OrderDate, o.DeliveryAddress, o.PhoneNumber " +
-                               "FROM Orders o";
-
-                if (status != "All")
-                {
-                    query += " WHERE o.StatusID = @statusName";
-                }
-
-                SqlCommand cmd = new SqlCommand(query, con);
-                if (status != "All")
-                {
-                    cmd.Parameters.AddWithValue("@statusName", status);
-                }
-
-                SqlDataAdapter da = new SqlDataAdapter(cmd);
-                DataTable dt = new DataTable();
-                da.Fill(dt);
-                OrderGrid.DataSource = dt;
-                OrderGrid.DataBind();
-            }
-        }
-
-        protected void FilterOrdersByStatus(object sender, EventArgs e)
-        {
-            LoadOrderGrid(ddlStatus.SelectedValue);
+            SqlDataAdapter da = new SqlDataAdapter(
+    @"SELECT i.Ingredient_Name, inv.Quantity 
+      FROM Ingredient i
+      INNER JOIN Inventory inv ON i.Ingredient_ID = inv.IngredientID
+      WHERE inv.Quantity < 10",
+    con);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            LowInventoryGrid.DataSource = dt;
+            LowInventoryGrid.DataBind();
         }
 
         protected void UpdateOrderStatus(object sender, EventArgs e)
         {
-            DropDownList ddlStatus = (DropDownList)sender;
-            GridViewRow row = (GridViewRow)ddlStatus.NamingContainer;
+            DropDownList ddl = (DropDownList)sender;
+            GridViewRow row = (GridViewRow)ddl.NamingContainer;
 
-            int orderId = Convert.ToInt32(OrderGrid.DataKeys[row.RowIndex].Value);
-            int newStatusId = Convert.ToInt32(ddlStatus.SelectedValue);
+            int orderID = Convert.ToInt32(row.Cells[0].Text); // Adjust index if OrderID is in a different column
 
-            using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["AbcCakeConnection"].ConnectionString))
-            {
-                con.Open();
-                SqlCommand cmd = new SqlCommand("UPDATE Orders SET StatusID = @StatusID WHERE OrderID = @OrderID", con);
-                cmd.Parameters.AddWithValue("@StatusID", newStatusId);
-                cmd.Parameters.AddWithValue("@OrderID", orderId);
-                cmd.ExecuteNonQuery();
-            }
+            int statusID = Convert.ToInt32(ddl.SelectedValue);
 
-            LoadOrderGrid(ddlStatus.SelectedValue);
+            SqlCommand cmd = new SqlCommand("UPDATE Orders SET StatusID = @StatusID WHERE OrderID = @OrderID", con);
+            cmd.Parameters.AddWithValue("@StatusID", statusID);
+            cmd.Parameters.AddWithValue("@OrderID", orderID);
+
+            con.Open();
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            LoadOrderList();
         }
-
     }
-    
 }

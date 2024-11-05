@@ -11,7 +11,16 @@ namespace ABC_Cake
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (Session["UserRole"] == null)
+            {   
+                Response.Redirect("Login.aspx");
+                return;
+            }
+            if (Session["UserId"] == null)
+            {
+                Response.Redirect("Login.aspx");
+                return;
+            }
         }
     }
 }

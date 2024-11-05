@@ -24,6 +24,7 @@ namespace ABC_Cake
                 LoadOrderList();
                 LoadLowInventory();
             }
+
         }
 
         protected void LoadDashboardData()
@@ -76,7 +77,7 @@ namespace ABC_Cake
             DropDownList ddl = (DropDownList)sender;
             GridViewRow row = (GridViewRow)ddl.NamingContainer;
 
-            int orderID = Convert.ToInt32(row.Cells[0].Text); // Adjust index if OrderID is in a different column
+            int orderID = Convert.ToInt32(row.Cells[0].Text);
 
             int statusID = Convert.ToInt32(ddl.SelectedValue);
 

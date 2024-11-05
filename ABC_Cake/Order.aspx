@@ -6,7 +6,7 @@
     <title>ABC Cake Shop - Order</title>
     <style type="text/css">
 
-        body {
+        body {      
             font-family: Arial, sans-serif;
             color: #333;
             background-color: #F4F4F9;
@@ -20,32 +20,80 @@
             padding: 10px 0;
             font-size: 30px;
         }
-        .container {
-            display: flex;
-        }
-        .sidebar {
-            width: 200px;
-            background-color: #333;
-            color: white;
-            height: 100vh;
-            position: relative;
-            padding-top: 20px;
+                .sidebar {
+    width: 70px;
+    background-color: #333;
+    color: white;
+    height: 100vh; 
+    position: fixed; 
+    top: 0;
+    left: 0;
+    transition: width 0.3s;
+    padding-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
+.sidebar a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    padding: 15px 10px;
+    text-decoration: none;
+    font-size: 18px;
+    transition: background-color 0.3s;
+}
+
+.sidebar a .icon {
+    font-size: 24px;
+}
+
+.sidebar a .text {
+    writing-mode: horizontal-tb;
+    
+    margin-top: 5px;           
+    font-size: 16px;
+}
+
+.sidebar:hover {
+    width: 200px;
+}
+
+.sidebar:hover .text {
+    display: inline-block; 
+}
+.sidebar a .text {
+    display: none; 
+    writing-mode: horizontal-tb; 
+    text-orientation: mixed;   
+    margin-top: 5px;           
+    font-size: 16px;
+}
+
+        .sidebar i {
+            font-size: 20px;
+            margin-right: 10px;
         }
-        .sidebar a {
-            display: block;
-            color: white;
-            padding: 10px;
-            text-decoration: none;
-            font-size: 18px;
+        .sidebar .link-text {
+            opacity: 0;
+            transition: opacity 0.3s;
+            white-space: nowrap;
         }
-        .sidebar a:hover {
-            background-color: #575757;
+        .sidebar:hover .link-text {
+            opacity: 1;
         }
+    
         .content {
-            margin-left: 220px;
+            margin-left: 70px;
             padding: 20px;
-            width: calc(100% - 220px);
+            width: calc(100% - 70px);
+            transition: margin-left 0.3s;
+        }
+        .sidebar:hover ~ .content {
+            margin-left: 200px;
+            width: calc(100% - 200px);
         }
         .form-section {
             background-color: white;
@@ -93,7 +141,7 @@
             color: #333;
             margin-top: 10px;
         }
-        /* Container and grid layout */
+        
 .grid-section {
     display: flex;
     flex-direction: column;
@@ -175,14 +223,30 @@
 <body>
     <form id="form1" runat="server">
         <div class="header">ABC Cake Shop - Order Your Custom Cake</div>
-        <div class="container">
+                <div class="container">
             <div class="sidebar">
-    <a href="UserProfile.aspx">Home</a>
-    <a href="Order.aspx">Make Order</a>
-    <a href="AboutUs.aspx">About Us</a>
-    <a href="Contact.aspx">Contact</a>
-    <a href="Logout.aspx">Log Out</a>
-</div>  
+    <a href="UserProfile.aspx">
+        <span class="icon">🏠</span> 
+        <span class="text">Home</span>
+    </a>
+    <a href="Order.aspx">
+        <span class="icon">🛒</span>
+        <span class="text">Order</span>
+    </a>
+    <a href="AboutUs.aspx">
+        <span class="icon">ℹ️</span>
+        <span class="text">About</span>
+    </a>
+    <a href="Contact.aspx">
+        <span class="icon">📞</span>
+        <span class="text">Contact</span>
+    </a>
+    <a href="Logout.aspx">
+        <span class="icon">🚪</span>
+        <span class="text">Logout</span>
+    </a>
+</div>
+</div> 
             <div class="content">
                 <div class="form-section">
                     <h2>Make Your Favourite Cake</h2>
@@ -279,7 +343,7 @@
     </div>
     <asp:Label ID="lblTotalPrice" runat="server" Text="Total Price: $0" CssClass="total-price-label"></asp:Label>
     <br />
-    <asp:Button ID="ConfirmButton" runat="server" Text="Confirm Order" OnClick="ConfirmButton_Click" CssClass="confirm-button" />
+    <asp:Button ID="ConfirmButton" runat="server" Text="Confirm Order" OnClick="ConfirmButton_Click" CssClass="confirm-button" Visible="false" />
 </div>
 
             </div>

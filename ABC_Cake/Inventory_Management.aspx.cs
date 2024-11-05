@@ -36,7 +36,6 @@ namespace ABC_Cake
                 SqlDataAdapter da = new SqlDataAdapter(query, conn);
                 DataTable dt = new DataTable();
                 da.Fill(dt);
-
                 ddlIngredients.DataSource = dt;
                 ddlIngredients.DataTextField = "Ingredient_Name";
                 ddlIngredients.DataValueField = "Ingredient_ID";
@@ -79,7 +78,7 @@ namespace ABC_Cake
         }
 
 
-        protected void btnReduceInventory_Click(object sender, EventArgs e)
+        protected void btnReduceInventory_Click(object sender, EventArgs e) 
         {
             int ingredientId = Convert.ToInt32(ddlIngredients.SelectedValue);
             decimal quantity = Convert.ToDecimal(txtQuantity.Text);
@@ -91,7 +90,8 @@ namespace ABC_Cake
                 cmd.Parameters.AddWithValue("@IngredientID", ingredientId);
                 cmd.Parameters.AddWithValue("@Quantity", quantity);
                 cmd.ExecuteNonQuery();
-            }
+            }   
+
 
             LoadInventory(); 
         }

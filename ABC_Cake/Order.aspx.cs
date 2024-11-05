@@ -29,7 +29,7 @@ namespace ABC_Cake
             {
                 con.Open();
 
-                // Decoration Types
+                // Decoration 
                 using (SqlCommand cmd = new SqlCommand(@"
             SELECT Ingredient.Ingredient_ID, Ingredient.Ingredient_Name 
             FROM Ingredient 
@@ -48,7 +48,7 @@ namespace ABC_Cake
                 }
                 DropDownList6.Items.Insert(0, new ListItem("Select Decoration Types", ""));
 
-                // Cake Flavors
+                
                 using (SqlCommand cmd = new SqlCommand(@"
             SELECT Ingredient.Ingredient_ID, Ingredient.Ingredient_Name 
             FROM Ingredient 
@@ -65,7 +65,7 @@ namespace ABC_Cake
                 }
                 DropDownList1.Items.Insert(0, new ListItem("Select Cake Flavor", ""));
 
-                // Cake Sizes
+                
                 using (SqlCommand cmd = new SqlCommand(@"
             SELECT Ingredient.Ingredient_ID, Ingredient.Ingredient_Name 
             FROM Ingredient 
@@ -172,6 +172,7 @@ namespace ABC_Cake
 
             // Calculate total price
             CalculateTotalPrice();
+            ConfirmButton.Visible = true;
         }
 
         private void BindGrid(GridView gridView, string title, string selectedText)
@@ -263,7 +264,7 @@ namespace ABC_Cake
                 orderCmd.Parameters.AddWithValue("@PhoneNumber", phoneNumber);
                 orderCmd.Parameters.AddWithValue("@StatusID", statusId);
 
-                int orderId = (int)orderCmd.ExecuteScalar(); // Retrieve the new OrderID
+                int orderId = (int)orderCmd.ExecuteScalar(); 
 
                 string insertOrderIngredientsQuery = @"
             INSERT INTO OrderIngredients (OrderID, IngredientID) 
@@ -281,7 +282,7 @@ namespace ABC_Cake
 
                 foreach (var ingredientId in ingredientIds)
                 {
-                    if (!string.IsNullOrEmpty(ingredientId)) // Check if the ingredient ID is not empty
+                    if (!string.IsNullOrEmpty(ingredientId)) 
                     {
                         using (SqlCommand ingredientCmd = new SqlCommand(insertOrderIngredientsQuery, con))
                         {
@@ -291,12 +292,15 @@ namespace ABC_Cake
                         }
                         ReduceInventory(con, ingredientId);
                     }
-                }
 
-             
-                ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Order Pending. Please Check The Status!');", true);
-                
-                Response.Redirect("UserProfile.aspx");
+                }
+                Response.Write("<script type='text/javascript'>alert('Order Pending! Please Wait Admin Will Confirm It!'); window.location='UserProfile.aspx';</script>");
+            
+
+                //Response.Write("<script>alert('Order Pending! Please Wait Admin Will Confirm It!');</script>");
+
+
+                //Response.Redirect("UserProfile.aspx");
             }
         }
 
@@ -316,7 +320,6 @@ namespace ABC_Cake
                     cmd.Parameters.AddWithValue("@IngredientId", ingredientId);
                     int rowsAffected = cmd.ExecuteNonQuery();
 
-                    // Optionally, you could handle cases where the ingredient was not in stock
                     if (rowsAffected == 0)
                     {
                         ClientScript.RegisterStartupScript(this.GetType(), "alert", "alert('Ingredient was not in stock');", true);

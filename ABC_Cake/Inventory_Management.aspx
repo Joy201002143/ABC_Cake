@@ -13,14 +13,12 @@
             text-align: center;
         }
 
-        /* Page Title Styling */
         h2 {
             font-size: 28px;
             color: #2c3e50;
             margin-bottom: 20px;
         }
 
-        /* Centered Panel Styling for Inventory Form */
         .inventory-panel {
             display: inline-block;
             padding: 20px;
@@ -63,7 +61,6 @@
             background-color: #34495e;
         }
 
-        /* GridView Styling */
         .grid-container {
             margin-top: 30px;
         }
@@ -133,7 +130,6 @@
     border-bottom: 1px solid #34495e;
 }
 
-/* Sidebar Button Styling */
 .sidebar a {
     width: 100%;
     text-decoration: none;
@@ -143,13 +139,13 @@
     padding: 15px;
     font-size: 18px;
     transition: background 0.2s, padding-left 0.2s;
-    border-radius: 30px; /* Rounded button style */
+    border-radius: 30px; 
     margin: 5px 0;
 }
 
 .sidebar a:hover {
     background-color: #34495e;
-    padding-left: 20px; /* Indent on hover for effect */
+    padding-left: 20px; 
     cursor: pointer;
 }
 
@@ -200,7 +196,6 @@
                 </div>
             </div>
 
-            <!-- GridView Container for Inventory List -->
             <div class="grid-container">
                 <div class="grid-title">Current Inventory</div>
                 <asp:GridView ID="gvInventory" runat="server" AutoGenerateColumns="False" CssClass="auto-style1" Width="1348px" CellPadding="4" ForeColor="#333333" GridLines="None">

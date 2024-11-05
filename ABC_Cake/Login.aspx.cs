@@ -16,22 +16,21 @@ namespace ABC_Cake
                 
                 if (Session["UserId"] != null)
                 {
-                    Response.Redirect("UserProfile.aspx"); // Redirect to the main page if already logged in
+                    Response.Redirect("UserProfile.aspx"); 
                 }
             }
         }
 
         protected void Button1_Click(object sender, EventArgs e)
         {
-            string username = TextBox1.Text.Trim();  // Trim whitespace from input
+            string username = TextBox1.Text.Trim(); 
             string password = TextBox2.Text.Trim();
 
             using (SqlConnection con = new SqlConnection(ConfigurationManager.ConnectionStrings["AbcCakeConnection"].ConnectionString))
             {
                 con.Open();
 
-                // Query to get UserId and Role if the username and password match
-                string loginQuery = "SELECT UserId, Roles FROM Users WHERE username = @username AND password = @password";
+                string loginQuery = "SELECT UserId, Roles FROM Users WHERE username COLLATE SQL_Latin1_General_CP1_CS_AS = @username  AND password COLLATE SQL_Latin1_General_CP1_CS_AS = @password;";
                 SqlCommand cmd = new SqlCommand(loginQuery, con);
                 cmd.Parameters.AddWithValue("@username", username);
                 cmd.Parameters.AddWithValue("@password", password);

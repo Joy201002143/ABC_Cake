@@ -32,50 +32,50 @@
             z-index: 1000;
         }
 
-        .sidebar:hover {
-            width: 250px;
-            padding-left: 10px;
-        }
+            .sidebar:hover {
+                width: 250px;
+                padding-left: 10px;
+            }
 
-        .sidebar h2 {
-            font-size: 18px;
-            color: #ecf0f1;
-            margin: 20px 0;
-            display: none;
-        }
+            .sidebar h2 {
+                font-size: 18px;
+                color: #ecf0f1;
+                margin: 20px 0;
+                display: none;
+            }
 
-        .sidebar:hover h2 {
-            display: block;
-            text-align: center;
-            width: 100%;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #34495e;
-        }
+            .sidebar:hover h2 {
+                display: block;
+                text-align: center;
+                width: 100%;
+                padding-bottom: 20px;
+                border-bottom: 1px solid #34495e;
+            }
 
-        /* Sidebar Button Styling */
-        .sidebar a {
-            width: 100%;
-            text-decoration: none;
-            color: #ecf0f1;
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            font-size: 18px;
-            transition: background 0.2s, padding-left 0.2s;
-            border-radius: 30px; /* Rounded button style */
-            margin: 5px 0;
-        }
+            /* Sidebar Button Styling */
+            .sidebar a {
+                width: 100%;
+                text-decoration: none;
+                color: #ecf0f1;
+                display: flex;
+                align-items: center;
+                padding: 15px;
+                font-size: 18px;
+                transition: background 0.2s, padding-left 0.2s;
+                border-radius: 30px; /* Rounded button style */
+                margin: 5px 0;
+            }
 
-        .sidebar a:hover {
-            background-color: #34495e;
-            padding-left: 20px; /* Indent on hover for effect */
-            cursor: pointer;
-        }
+                .sidebar a:hover {
+                    background-color: #34495e;
+                    padding-left: 20px; /* Indent on hover for effect */
+                    cursor: pointer;
+                }
 
-        .sidebar .icon {
-            font-size: 20px;
-            margin-right: 15px;
-        }
+            .sidebar .icon {
+                font-size: 20px;
+                margin-right: 15px;
+            }
 
         /* Dashboard Styling */
         .dashboard {
@@ -109,9 +109,9 @@
             transition: transform 0.2s;
         }
 
-        .panel:hover {
-            transform: scale(1.05);
-        }
+            .panel:hover {
+                transform: scale(1.05);
+            }
 
         /* Panel Colors */
         #totalUsersPanel {
@@ -146,7 +146,6 @@
         .auto-style1 {
             margin-left: 60px;
         }
-
     </style>
 </head>
 <body>
@@ -156,7 +155,7 @@
                 <h2>Admin Dashboard</h2>
                 <a href="#" class="sidebar-item"><span class="icon">🏠</span><span>Home</span></a>
                 <a href="Inventory_Management.aspx" class="sidebar-item"><span class="icon">📦</span><span>Inventory Management</span></a>
-                <a href="#" class="sidebar-item"><span class="icon">📊</span><span>Reports</span></a>
+                <a href="Search_Order.aspx" class="sidebar-item"><span class="icon">📊</span><span>Reports</span></a>
                 <a href="#" class="sidebar-item"><span class="icon">⚙️</span><span>Settings</span></a>
                 <a href="Logout.aspx" class="sidebar-item"><span class="icon">🚪</span><span>Logout</span></a>
             </div>

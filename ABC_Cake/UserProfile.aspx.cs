@@ -75,6 +75,11 @@ namespace ABC_Cake
                 }
             }
         }
+        protected void txtUsername_TextChanged(object sender, EventArgs e)
+        {
+
+              
+        }
 
         protected void btnEdit_Click(object sender, EventArgs e)
         {
@@ -108,6 +113,13 @@ namespace ABC_Cake
                 btnSave.Visible = false; 
                 btnEdit.Visible = true; 
             }
+        }
+
+        protected void btnHistory_Click(object sender, EventArgs e)
+        {
+            GridViewOrders.Visible = !GridViewOrders.Visible;
+            btnEdit0.Text = GridViewOrders.Visible ? "Hide History" : "Show History";
+
         }
     }
 }

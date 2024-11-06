@@ -31,12 +31,19 @@ namespace ABC_Cake
             
             string username = TextBox2.Text.Trim();
             string password = TextBox5.Text.Trim();
+            string Confirm_password = TextBox3.Text.Trim();
             string contact = TextBox7.Text.Trim();
             string sex = DropDownList1.SelectedValue;
             String Roles = "User";
             DateTime dateOfBirth;
+            if (password != Confirm_password)
+            {
+                Response.Write("<script>alert('Password and Confirm Password Does Not Match.');</script>");
+                return;
 
-            
+            }
+
+                
             if (!DateTime.TryParse(TextBox6.Text.Trim(), out dateOfBirth))
             {
                 

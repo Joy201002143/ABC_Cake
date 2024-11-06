@@ -6,7 +6,7 @@
         <h3>Contact With Joy.</h3>
         <address>
             The system made by Joy Munshi<br /> 
-            777/2, west kazipara, Mirpur, Dhaka<br />       
+            777/2, west kazipara, Mirpur, Dhaka<br />
             <abbr title="Phone">P:</abbr>
 
             01630465310

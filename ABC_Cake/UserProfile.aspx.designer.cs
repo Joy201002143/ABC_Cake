@@ -69,6 +69,15 @@ namespace ABC_Cake
         protected global::System.Web.UI.WebControls.Button btnSave;
 
         /// <summary>
+        /// btnEdit0 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnEdit0;
+
+        /// <summary>
         /// GridViewOrders control.
         /// </summary>
         /// <remarks>

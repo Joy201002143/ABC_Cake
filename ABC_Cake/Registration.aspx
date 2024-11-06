@@ -84,20 +84,34 @@
             <div class="form-group">
                 <label for="TextBox2">User Name:</label>
                 <asp:TextBox ID="TextBox2" runat="server"></asp:TextBox>
+                            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TextBox2" ErrorMessage="<br/> <br/>Username is required." CssClass="error-message" Display="Dynamic" />
+
             </div>
             <div class="form-group">
-                <label for="TextBox5">Password:</label>
+    <label for="TextBox3">Password:</label>
+    <asp:TextBox ID="TextBox3" runat="server" TextMode="Password"></asp:TextBox>
+                                            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" runat="server" ControlToValidate="TextBox3" ErrorMessage="<br/> <br/>Password is required." CssClass="error-message" Display="Dynamic" />
+
+    
+    </div>
+            <div class="form-group">
+                <label for="TextBox5">Confirm Password:</label>
                 <asp:TextBox ID="TextBox5" runat="server" TextMode="Password"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator4" runat="server" ControlToValidate="TextBox5" ErrorMessage="<br/> <br/>Confirm Password is required." CssClass="error-message" Display="Dynamic" />
+
                 
                 </div>
    <input class="checkbox" type="checkbox" onchange="document.getElementById('TextBox5').type=this.checked? 'text':'password'" /> Show Password
    <br />
+            <br />
             <div>
             </div>
 
             <div class="form-group">
                 <label for="TextBox7">Contact:</label>
                 <asp:TextBox ID="TextBox7" runat="server"></asp:TextBox>
+                <asp:RequiredFieldValidator ID="RequiredFieldValidator5" runat="server" ControlToValidate="TextBox7" ErrorMessage="<br/> <br/>Contact is required." CssClass="error-message" Display="Dynamic" />
+
             </div>
             <div class="form-group">
                 <label for="DropDownList1">Sex:</label>

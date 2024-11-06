@@ -73,9 +73,13 @@
         <h2>User Login</h2>
         <asp:Label ID="Label1" runat="server" Text="Username" AssociatedControlID="TextBox1"></asp:Label>
         <asp:TextBox ID="TextBox1" runat="server" Height="35px"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TextBox1" ErrorMessage="<br/> <br/>Username is required." CssClass="error-message" Display="Dynamic" />
+
         
-        <asp:Label ID="Label2" runat="server" Text="Password" AssociatedControlID="TextBox2"></asp:Label>
+        <asp:Label ID="Label2" runat="server" Text="Password" AssociatedControlID="TextBox2" required="true"></asp:Label>
         <asp:TextBox ID="TextBox2" runat="server" TextMode="Password" Height="35px"></asp:TextBox>
+                    <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TextBox2" ErrorMessage="Password is required.<br/> <br/>" CssClass="error-message" Display="Dynamic" />
+
         
         <input class="checkbox" type="checkbox" onchange="document.getElementById('TextBox2').type=this.checked? 'text':'password'" />
         Show Password

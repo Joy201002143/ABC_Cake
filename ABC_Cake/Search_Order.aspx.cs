@@ -24,6 +24,7 @@ namespace ABC_Cake
             {
                 LoadOrderIDs();
                 LoadIngredients();
+                LoadStatus();
             }
         }
 
@@ -75,7 +76,7 @@ namespace ABC_Cake
 
         private void LoadIngredients()
         {
-            SqlCommand cmd = new SqlCommand("SELECT DISTINCT i.Ingredient_Name, i.Ingredient_ID FROM Ingredient i INNER JOIN OrderIngredients oi ON i.Ingredient_ID = oi.IngredientID", con);
+            SqlCommand cmd = new SqlCommand("SELECT DISTINCT i.Ingredient_Name, i.Ingredient_ID FROM Ingredient i INNER JOIN OrderIngredients oi ON i.Ingredient_ID = oi.IngredientID WHERE i.Custom_Cake_Name='Cake Flavors'", con);
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
@@ -88,14 +89,30 @@ namespace ABC_Cake
             ddlIngredient.Items.Insert(0, new ListItem("-- None --", ""));
         }
 
+        private void LoadStatus()
+        {
+            SqlCommand cmd = new SqlCommand("SELECT statusID, status_name FROM [AbcCake].[dbo].[status]", con);
+            SqlDataAdapter da = new SqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+
+            status.DataSource = dt;
+            status.DataTextField = "status_name";
+            status.DataValueField = "statusID";
+            status.DataBind();
+
+            status.Items.Insert(0, new ListItem("-- None --", ""));
+        }
+
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             string OID = txtOrderSearch.Text;
             //Response.Write("Debug OID Value: " + OID);
-            //Response.End();
+
             string ingredientId = ddlIngredient.SelectedValue;
             string startDate = txtStartDate.Text;
             string endDate = txtEndDate.Text;
+            string Status = status.SelectedValue;
 
             if (string.IsNullOrEmpty(startDate))
             {
@@ -132,6 +149,7 @@ namespace ABC_Cake
             WHERE 
                 (@OrderID = '' OR o.OrderID = @OrderID)
                 AND (@IngredientID = '' OR i.Ingredient_ID = @IngredientID)
+                AND (@Status = '' OR o.StatusID = @Status)
                 AND ((@StartDate = '' AND @EndDate = '') OR (o.OrderDate BETWEEN @StartDate AND @EndDate))
         )
         SELECT 
@@ -150,6 +168,7 @@ namespace ABC_Cake
 
             SqlCommand cmd = new SqlCommand(query, con);
             cmd.Parameters.AddWithValue("@OrderID", OID);
+            cmd.Parameters.AddWithValue("@Status", Status);
             //cmd.Parameters.AddWithValue("@OrderID", orderId);
             cmd.Parameters.AddWithValue("@IngredientID", ingredientId);
             cmd.Parameters.AddWithValue("@StartDate", string.IsNullOrEmpty(startDate) ? (object)DBNull.Value : startDate);

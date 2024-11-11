@@ -45,8 +45,8 @@
                 $("#txtOrderSearch").val(selectedText);
                 $("#ddlOrderIDs").hide();
                 $(this).val(enteredText);
-
             });
+
 
             $("#txtOrderSearch").on("keypress", function (e) {
                 if (e.which == 13) {
@@ -167,10 +167,147 @@
                 #ddlOrderIDs option:hover {
                     background-color: #f1f1f1;
                 }
+
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+            padding: 30px;
+            margin: 20px auto;
+            max-width: 600px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+            .card:hover {
+                transform: translateY(-10px);
+                box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            }
+
+        .card-header {
+            font-size: 1.5rem;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 20px;
+            color: #343a40;
+            border-bottom: 2px solid #f1f1f1;
+        }
+
+        .form-label {
+            font-size: 1rem;
+            font-weight: 500;
+            margin-bottom: 5px;
+            color: #495057;
+            text-align: center;
+        }
+
+        /* Textbox and Dropdown Styling */
+        .form-control, .form-select {
+            border-radius: 5px;
+            border: 1px solid #ced4da;
+            padding: 10px;
+            font-size: 1rem;
+            width: 100%;
+            transition: border-color 0.3s ease;
+            max-width: 100%;
+        }
+
+        /* Ensure Inputs and Dropdowns are center-aligned */
+        .form-control, .form-select {
+            margin-bottom: 15px;
+        }
+
+            .form-control:focus, .form-select:focus {
+                border-color: #007bff;
+                box-shadow: 0 0 5px rgba(0, 123, 255, 0.2);
+            }
+
+        /* Button Styling */
+        .btn {
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+        }
+
+            .btn-primary:hover {
+                background-color: #0056b3;
+                cursor: pointer;
+            }
+
+        /* Center Alignment */
+        .text-center {
+            text-align: center;
+        }
+
+        /* Spacing Between Inputs */
+        .mb-3 {
+            margin-bottom: 1.5rem;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .card {
+                padding: 20px;
+                max-width: 90%;
+            }
+
+            .form-label {
+                font-size: 0.9rem;
+            }
+
+            .form-control, .form-select {
+                font-size: 0.9rem;
+            }
+
+            .btn {
+                font-size: 1rem;
+            }
+        }
+
+        /* Center alignment for row and form elements */
+        .row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .col-md-4 {
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        /* Align labels and fields in the center */
+        .mb-3 {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+        }
+
+        /* Ensuring proper spacing between each column */
+        .col-md-4 {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
     <form id="form1" runat="server">
+
         <div class="container mt-5">
             <div class="dashboard">
                 <div class="sidebar">
@@ -182,53 +319,93 @@
                     <a href="Logout.aspx" class="sidebar-item"><span class="icon">🚪</span><span>Logout</span></a>
                 </div>
                 <h2 class="text-center">Search Orders</h2>
-                <div id="ddlOrderContainer" ckass="mb-3">
+                <div class="card">
+                    <div class="card-body">
+
+                        <div class="row mb-4">
+
+                            <div class="col-md-4">
+
+                                <div id="ddlOrderContainer" ckass="mb-4">
+                                    <center>
 
                                         <asp:Label ID="Label1" runat="server" Text="Type Order ID"></asp:Label>
 
-                    <asp:TextBox ID="txtOrderSearch" runat="server" ReadOnly="false" CssClass="input-field read-only"></asp:TextBox>
+                                        <asp:TextBox ID="txtOrderSearch" runat="server" ReadOnly="false" CssClass="input-field"></asp:TextBox>
 
 
-                    <asp:DropDownList ID="ddlOrderIDs" runat="server" AutoPostBack="false" size="10" Style="display: block;">
-                    </asp:DropDownList>
+                                        <asp:DropDownList ID="ddlOrderIDs" runat="server" AutoPostBack="false" size="5" Style="display: block;">
+                                        </asp:DropDownList>
+                                    </center>
+                                </div>
+                            </div>
+
+
+                            <div class="row mb-3">
+
+                                <div class="col-md-4">
+                                    <label for="ddlIngredient" class="form-label">Ingredient</label>
+                                    <asp:DropDownList ID="ddlIngredient" runat="server" CssClass="form-select"></asp:DropDownList>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label for="ddlIngredient" class="form-label">Status</label>
+                                    <asp:DropDownList ID="status" runat="server" CssClass="form-select"></asp:DropDownList>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3">
+                        <div class="col-md-4 text-center">
+                            <label for="txtStartDate" class="form-label">Start Date</label>
+                            <asp:TextBox ID="txtStartDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                        </div>
+
+                        <div class="col-md-4 text-center">
+                            <label for="txtEndDate" class="form-label">End Date</label>
+                            <asp:TextBox ID="txtEndDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
+                        </div>
+
+
+                        <center>
+                            <hr />
+                            <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-primary" OnClick="btnSearch_Click" />
+
+
+                        </center>
+                    </div>
                 </div>
-                
-                
-
-                <div class="mb-3">
-                    <label for="ddlIngredient" class="form-label">Ingredient</label>
-                    <asp:DropDownList ID="ddlIngredient" runat="server" CssClass="form-select"></asp:DropDownList>
-                </div>
-
-                <div class="mb-3">
-                    <label for="txtStartDate" class="form-label">Start Date</label>
-                    <asp:TextBox ID="txtStartDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
-                </div>
-
-                <div class="mb-3">
-                    <label for="txtEndDate" class="form-label">End Date</label>
-                    <asp:TextBox ID="txtEndDate" runat="server" CssClass="form-control" TextMode="Date"></asp:TextBox>
-                </div>
-
-                <asp:Button ID="btnSearch" runat="server" Text="Search" CssClass="btn btn-primary" OnClick="btnSearch_Click" />
-
-                <hr />
-
-                <asp:GridView ID="GridViewResults" runat="server" CssClass="table table-striped mt-4" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None">
-                    <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
-                    <Columns>
-                        <asp:BoundField DataField="UserName" HeaderText="User Name" />
-                        <asp:BoundField DataField="OrderID" HeaderText="Order ID" />
-                        <asp:BoundField DataField="TotalPrice" HeaderText="Total Price" DataFormatString="{0:C}" />
-                        <asp:BoundField DataField="OrderDate" HeaderText="Order Date" DataFormatString="{0:MM/dd/yyyy}" />
-                        <asp:BoundField DataField="Ingredient_Name" HeaderText="Ingredient" />
-                        <asp:BoundField DataField="status_name" HeaderText="Status" />
-                    </Columns>
-                </asp:GridView>
             </div>
+            <asp:GridView ID="GridViewResults" runat="server" CssClass="table table-striped mt-4" AutoGenerateColumns="False" CellPadding="4" ForeColor="#333333" GridLines="None">
+                <AlternatingRowStyle BackColor="White" />
+                <Columns>
+                    <asp:BoundField DataField="UserName" HeaderText="User Name" />
+                    <asp:BoundField DataField="OrderID" HeaderText="Order ID" />
+                    <asp:BoundField DataField="TotalPrice" HeaderText="Total Price" DataFormatString="{0:C}" />
+                    <asp:BoundField DataField="OrderDate" HeaderText="Order Date" DataFormatString="{0:MM/dd/yyyy}" />
+                    <asp:BoundField DataField="Ingredient_Name" HeaderText="Ingredient" />
+                    <asp:BoundField DataField="status_name" HeaderText="Status" />
+                </Columns>
+                <EditRowStyle BackColor="#2461BF" />
+                <FooterStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                <HeaderStyle BackColor="#507CD1" Font-Bold="True" ForeColor="White" />
+                <PagerStyle BackColor="#2461BF" ForeColor="White" HorizontalAlign="Center" />
+                <RowStyle BackColor="#EFF3FB" />
+                <SelectedRowStyle BackColor="#D1DDF1" Font-Bold="True" ForeColor="#333333" />
+                <SortedAscendingCellStyle BackColor="#F5F7FB" />
+                <SortedAscendingHeaderStyle BackColor="#6D95E1" />
+                <SortedDescendingCellStyle BackColor="#E9EBEF" />
+                <SortedDescendingHeaderStyle BackColor="#4870BE" />
+            </asp:GridView>
+
         </div>
+
+
+
     </form>
 
-    
+
 </body>
 </html>

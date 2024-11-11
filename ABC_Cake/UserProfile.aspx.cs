@@ -29,7 +29,6 @@ namespace ABC_Cake
 
         private void LoadUserInfo()
         {
-            // Assuming you store UserId in Session
             if (Session["UserId"] != null)
             {
                 int userId = (int)Session["UserId"];

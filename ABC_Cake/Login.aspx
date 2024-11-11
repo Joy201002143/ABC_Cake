@@ -13,7 +13,11 @@
             align-items: center;
             height: 100vh;
             font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
+            background-image: url('https://img.freepik.com/free-vector/background-realistic-abstract-technology-particle_23-2148431265.jpg?t=st=1730958521~exp=1730962121~hmac=edcce51e7f6f43c63f6beba0228d4d041f14465b65736aa8b442d47004a4b067&w=996');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            /*            background-color: #f9f9f9;*/
         }
 
         .login-container {
@@ -77,7 +81,7 @@
             }
     </style>
 </head>
-    
+
 <body>
     <form id="form1" runat="server" class="login-container">
         <h2>User Login</h2>
@@ -85,7 +89,7 @@
         <asp:TextBox ID="TextBox1" runat="server" Height="35px"></asp:TextBox>
         <asp:RequiredFieldValidator ID="RequiredFieldValidator1" runat="server" ControlToValidate="TextBox1" ErrorMessage="<br/> <br/>Username is required." CssClass="error-message" Display="Dynamic" />
 
-            
+
         <asp:Label ID="Label2" runat="server" Text="Password" AssociatedControlID="TextBox2" required="true"></asp:Label>
         <asp:TextBox ID="TextBox2" runat="server" TextMode="Password" Height="35px"></asp:TextBox>
         <asp:RequiredFieldValidator ID="RequiredFieldValidator2" runat="server" ControlToValidate="TextBox2" ErrorMessage="Password is required.<br/> <br/>" CssClass="error-message" Display="Dynamic" />

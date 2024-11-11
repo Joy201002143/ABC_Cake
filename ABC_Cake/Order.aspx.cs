@@ -164,7 +164,7 @@ namespace ABC_Cake
             string filling = DropDownList5.SelectedItem.Text;
 
             BindGrid(GridView1, "Decoration Type", decoration);
-            BindGrid(GridView2, "Cake Flavor", flavor);
+            BindGrid(GridView2, "C  ake Flavor", flavor);
             BindGrid(GridView3, "Cake Size", size);
             BindGrid(GridView4, "Cake Shape", shape);
             BindGrid(GridView5, "Cake Color", color);

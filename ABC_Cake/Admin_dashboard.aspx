@@ -77,7 +77,7 @@
                 margin-right: 15px;
             }
 
-        /* Dashboard Styling */
+        
         .dashboard {
             margin-left: 60px;
             padding: 20px;
@@ -113,7 +113,7 @@
                 transform: scale(1.05);
             }
 
-        /* Panel Colors */
+        
         #totalUsersPanel {
             background: linear-gradient(135deg, #84fab0 0%, #8fd3f4 100%);
         }
@@ -130,7 +130,7 @@
             background: linear-gradient(135deg, #ff9966 0%, #ff5e62 100%);
         }
 
-        /* Text Styling */
+        
         .panel h2 {
             font-size: 30px;
             margin: 0;

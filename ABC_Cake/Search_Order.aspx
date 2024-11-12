@@ -204,7 +204,6 @@
             text-align: center;
         }
 
-        /* Textbox and Dropdown Styling */
         .form-control, .form-select {
             border-radius: 5px;
             border: 1px solid #ced4da;
@@ -215,7 +214,6 @@
             max-width: 100%;
         }
 
-        /* Ensure Inputs and Dropdowns are center-aligned */
         .form-control, .form-select {
             margin-bottom: 15px;
         }
@@ -326,11 +324,11 @@
 
                             <div class="col-md-4">
 
-                                <div id="ddlOrderContainer" ckass="mb-4">
-                                    <center>
+                                <div id="ddlOrderContainer" class="col-md-4">
+                                 <center>
 
-                                        <asp:Label ID="Label1" runat="server" Text="Type Order ID"></asp:Label>
-
+                                        <asp:Label ID="Label1" runat="server" Text="Type Order ID" Font-Bold="True"></asp:Label>
+                                            <br />
                                         <asp:TextBox ID="txtOrderSearch" runat="server" ReadOnly="false" CssClass="input-field"></asp:TextBox>
 
 

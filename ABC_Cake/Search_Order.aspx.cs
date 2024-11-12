@@ -15,13 +15,15 @@ namespace ABC_Cake
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserRole"] == null)
-            {
-                Response.Redirect("Login.aspx");
-                return;
-            }
+            
+            
             if (!IsPostBack)
             {
+                if (Session["UserRole"] == null)
+                {
+                    Response.Redirect("Login.aspx");
+                    return;
+                }
                 LoadOrderIDs();
                 LoadIngredients();
                 LoadStatus();

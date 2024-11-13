@@ -179,6 +179,7 @@ namespace ABC_Cake
             SqlDataAdapter da = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             da.Fill(dt);
+            ddlOrderIDs.ClearSelection();
 
             GridViewResults.DataSource = dt;
             GridViewResults.DataBind();
